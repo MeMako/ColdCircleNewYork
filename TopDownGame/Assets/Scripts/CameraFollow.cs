@@ -17,8 +17,8 @@ public class CameraFollow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        GetComponent<Camera>().orthographicSize += Input.mouseScrollDelta.y                                                                                                                                                                                                           ;
-        if (Vector2.Distance(transform.position, Player.transform.position) > DelayRadius)
+        GetComponent<Camera>().orthographicSize-= Input.mouseScrollDelta.y                                                                                                                                                                                                           ;
+        if (Vector2.Distance(transform.position, Player.transform.position) > DelayRadius || Player.GetComponent<Rigidbody2D>().velocity.magnitude < 0.1f)
         {
             PlayerPos = Player.transform.position                                                                                                                                                                                                                                     ;
             //Vector3 vector3 = transform.position - Player.transform.position                                                                                                                                                                                                        ;

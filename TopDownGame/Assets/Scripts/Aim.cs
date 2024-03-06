@@ -14,8 +14,13 @@ public class Aim : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       Vector2 Mouse = new Vector2(Input.mousePosition.x - transform.position.x, Input.mousePosition.y - transform.position.y);
-        float angle = Mathf.Atan2(Mouse.y, Mouse.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90f));
+        //Vector2 Mouse = new Vector2(Input.mousePosition.x - transform.position.x, Input.mousePosition.y - transform.position.y);
+        // float angle = Mathf.Atan2(Mouse.y, Mouse.x) * Mathf.Rad2Deg;
+        // transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90f));
+
+        Vector2 dir = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg + 90f;
+        transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
     }
 }
