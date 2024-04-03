@@ -5,11 +5,7 @@ using UnityEngine;
 
 public class Aim : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [HideInInspector] public Vector2 aimDir { get; set; }
 
     // Update is called once per frame
     void Update()
@@ -18,9 +14,9 @@ public class Aim : MonoBehaviour
         // float angle = Mathf.Atan2(Mouse.y, Mouse.x) * Mathf.Rad2Deg;
         // transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90f));
 
-        Vector2 dir = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+        aimDir = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
 
-        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg + 90f;
+        float angle = Mathf.Atan2(aimDir.y, aimDir.x) * Mathf.Rad2Deg + 90f;
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
     }
 }
