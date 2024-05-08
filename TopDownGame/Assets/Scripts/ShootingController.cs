@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ShootingController : MonoBehaviour
 {
+    public Text ammocount ; public int magsize; private int currentammo;
+
     [SerializeField] GameObject bulletPrefab;
 
     [SerializeField]
@@ -21,6 +24,10 @@ public class ShootingController : MonoBehaviour
     void Start()
     {
         m_tag = this.tag;
+
+        currentammo = magsize;
+
+        ammocount.text = currentammo.ToString() + "/" + magsize.ToString();
 
         switch (m_tag)
         {
@@ -45,12 +52,33 @@ public class ShootingController : MonoBehaviour
 
             float temp = (fireRate / 2f) / 2f;
             float randomVariance = Random.Range(fireRate - temp, fireRate + temp);
+            currentammo--;
+            ammocount.text = currentammo.ToString() + "/" + magsize.ToString();
             Invoke("FireRateWait", randomVariance);
         }
+        if (Input.GetKeyDown(KeyCode.W)) { canShoot = false; Invoke("reloadwait", 8f); }
     }
 
     void FireRateWait()
     {
         canShoot = true;
+        if (currentammo == 0)
+        {
+
+            canShoot = false;
+
+            Invoke("reloadwait", 8f);
+
+        }
+    }
+    void reloadwait ()
+    {
+
+        canShoot = true;
+        
+        currentammo = magsize;
+
+        ammocount.text = currentammo.ToString() + "/" + magsize.ToString();
+
     }
 }
